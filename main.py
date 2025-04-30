@@ -1,1 +1,1 @@
-CACA MOUNT
+print('CACA MOUNT')
