@@ -1,3 +1,6 @@
+from random import random
+
+
 class Morpion() : 
     def __init__(self) : 
         self.matrice = [[0, 0, 0],
