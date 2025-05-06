@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import simpledialog, colorchooser
+
 
 class UltimateTicTacToe:
     def __init__(self, root):
@@ -11,7 +13,11 @@ class UltimateTicTacToe:
         self.active_board = 4
         self.buttons = []
         self.frames = []  # stocke les frames pour changer le style
+        self.symbols = {"X": "X", "O": "O"}
+        self.colors = {"X": "lightgreen", "O": "lightblue"}
         self.create_ui()
+        self.create_menu()
+
 
     def create_ui(self):
         for big_row in range(3):
@@ -52,7 +58,7 @@ class UltimateTicTacToe:
 
         # Jouer
         self.boards[board_index][small_row][small_col] = self.current_player
-        self.buttons[board_index][cell_index]["text"] = self.current_player
+        self.buttons[board_index][cell_index]["text"] = self.symbols[self.current_player]
         self.buttons[board_index][cell_index]["state"] = "disabled"
 
         # Vérifier victoire locale
@@ -103,7 +109,7 @@ class UltimateTicTacToe:
 
     def color_board_win(self, board_index, player):
         for btn in self.buttons[board_index]:
-            btn.configure(bg="lightgreen" if player == "X" else "lightblue")
+            btn.configure(bg=self.colors[player])
     
     def reset_board(self, board_index):
         self.boards[board_index] = [[" " for _ in range(3)] for _ in range(3)]
@@ -144,6 +150,40 @@ class UltimateTicTacToe:
         else:
             print("Jouez dans la zone :", self.active_board)
         print("=" * 24)
+
+    def create_menu(self):
+        menubar = tk.Menu(self.root)
+        options_menu = tk.Menu(menubar, tearoff=0)
+
+        options_menu.add_command(label="Changer symbole joueur X", command=self.change_symbol_x)
+        options_menu.add_command(label="Changer symbole joueur O", command=self.change_symbol_o)
+        options_menu.add_separator()
+        options_menu.add_command(label="Changer couleur joueur X", command=self.change_color_x)
+        options_menu.add_command(label="Changer couleur joueur O", command=self.change_color_o)
+
+        menubar.add_cascade(label="Options", menu=options_menu)
+        self.root.config(menu=menubar)
+
+    def change_symbol_x(self):
+        new_symbol = simpledialog.askstring("Symbole Joueur X", "Entrez un nouveau symbole pour le joueur X :")
+        if new_symbol:
+            self.symbols["X"] = new_symbol
+
+    def change_symbol_o(self):
+        new_symbol = simpledialog.askstring("Symbole Joueur O", "Entrez un nouveau symbole pour le joueur O :")
+        if new_symbol:
+            self.symbols["O"] = new_symbol
+
+    def change_color_x(self):
+        color = colorchooser.askcolor(title="Choisir la couleur du joueur X")[1]
+        if color:
+            self.colors["X"] = color
+
+    def change_color_o(self):
+        color = colorchooser.askcolor(title="Choisir la couleur du joueur O")[1]
+        if color:
+            self.colors["O"] = color
+
 
 
 
