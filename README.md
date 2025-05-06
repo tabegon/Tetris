@@ -31,7 +31,7 @@ Le joueur 1 commence à jouer sur le plateau du centre. Il est libre de jouer n�
 
 Si le joueur 1 joue en **haut à gauche** :
 
-le joueur 2 devra jouer sur le plateau situé en **haut a gauche**
+     le joueur 2 devra jouer sur le plateau situé en **haut a gauche**
 
 Si le joueur 1 joue en **haut au milieu** :
 

@@ -8,7 +8,7 @@ class UltimateTicTacToe:
         self.current_player = "X"
         self.boards = [[[" " for _ in range(3)] for _ in range(3)] for _ in range(9)]
         self.board_wins = [" " for _ in range(9)]
-        self.active_board = None  # None = libre
+        self.active_board = 4
         self.buttons = []
         self.frames = []  # stocke les frames pour changer le style
         self.create_ui()
@@ -28,6 +28,8 @@ class UltimateTicTacToe:
                         btn.grid(row=small_row, column=small_col)
                         board_buttons.append(btn)
                 self.buttons.append(board_buttons)
+        self.highlight_active_board()
+
 
     def play(self, big_row, big_col, small_row, small_col):
         board_index = 3 * big_row + big_col
@@ -77,6 +79,8 @@ class UltimateTicTacToe:
 
         # Changer joueur
         self.current_player = "O" if self.current_player == "X" else "X"
+        self.print_terminal_board()
+
 
     def board_full(self, board):
         return all(cell != " " for row in board for cell in row)
@@ -118,6 +122,29 @@ class UltimateTicTacToe:
                 frame.configure(highlightbackground="darkblue", highlightthickness=3)
             else:
                 frame.configure(highlightbackground="black", highlightthickness=1)
+    
+    def print_terminal_board(self):
+        def board_to_char(index):
+            return self.board_wins[index] if self.board_wins[index] != " " else str(index)
+
+        print("\n" + "=" * 30)
+        print("État du plateau global :")
+        for big_row in range(3):
+            for small_row in range(3):
+                row = []
+                for big_col in range(3):
+                    board_index = 3 * big_row + big_col
+                    cells = self.boards[board_index][small_row]
+                    row.append(" ".join(cells))
+                print(" || ".join(row))
+            print("-" * 24)
+        print("\nProchain joueur :", self.current_player)
+        if self.active_board is None:
+            print("Zone libre")
+        else:
+            print("Jouez dans la zone :", self.active_board)
+        print("=" * 24)
+
 
 
 
