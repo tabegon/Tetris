@@ -1,38 +1,19 @@
-from random import random
+import tkinter
 
+class Tic_Tac_Boom:
+    def __init__(self):
+        # Les joueurs
+        self.players = ['O', 'X']
+        # Le joueur qui commence
+        self.current_player = "X"
+        # Créations des grilles
+        self.boards = [[[" " for i in range(3)] for i in range(3)] for i in range(9)]
+        # Création de la grille principale
+        self.board_wins = [" " for i in range(9)]
+        # Faire commencer dans le morpion du milieu
+        self.active_board = 4
 
-class Morpion() : 
-    def __init__(self) : 
-        self.matrice = [[0, 0, 0],
-                        [0, 0, 0],
-                        [0, 0, 0]]
-        self.accessibility = 0
-        self.coordonees = None
-    
-    def write_on_button(self) :
-        pass
-    
-def next_turn() : 
-    
-    pass
+        self.buttons = []
+        self.frames = []  # stocke les frames pour changer le style
 
-
-
-a = Morpion()
-b = Morpion()
-c = Morpion()
-d = Morpion()
-e = Morpion()
-f = Morpion()
-g = Morpion()
-h = Morpion()
-i = Morpion()
-
-players = ['X', 'O']
-player = random.choice(players)
-
-tictactoe = [[a.matrice, b.matrice, c.matrice],
-            [d.matrice, e.matrice, f.matrice],
-            [g.matrice, h.matrice, i.matrice]]
-
-print(tictactoe)
+        self.fenetre = tkinter.Tk()
