@@ -17,3 +17,23 @@ class Tic_Tac_Boom:
         self.frames = []  # stocke les frames pour changer le style
 
         self.fenetre = tkinter.Tk()
+
+def couleur_case():
+    pass
+    if self.check_win(self.boards[board_index]):
+
+def play(self, big_row, big_col, small_row, small_col):
+
+    pass
+
+def check_win(self, board):
+    
+    pass
+
+def check_global_win(self):
+
+    pass
+
+def reset_board(self, board_index):
+
+    pass
