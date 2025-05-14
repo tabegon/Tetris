@@ -53,5 +53,25 @@ class Tic_Tac_Boom:
             else:
                 frame.configure(highlightbackground="black", highlightthickness=2)
 
+    def couleur_case():
+        pass
+        
+
+    def play(self, big_row, big_col, small_row, small_col):
+
+        pass
+
+    def check_win(self, board):
+        
+        pass
+
+    def check_global_win(self):
+
+        pass
+
+    def reset_board(self, board_index):
+
+        pass
 
 partie = Tic_Tac_Boom()
+
