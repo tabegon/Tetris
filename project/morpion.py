@@ -29,7 +29,7 @@ class UltimateTicTacToe:
                 for small_row in range(3):
                     for small_col in range(3):
                         index = 3 * small_row + small_col
-                        btn = tk.Button(frame, text=" ", width=4, height=2,
+                        btn = tk.Button(frame, text=" ", width=8, height=4,
                                         command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
                         btn.grid(row=small_row, column=small_col)
                         board_buttons.append(btn)
