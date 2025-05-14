@@ -125,7 +125,7 @@ class UltimateTicTacToe:
             if self.active_board is None or self.board_wins[i] != " ":
                 frame.configure(highlightbackground="black", highlightthickness=1)
             elif i == self.active_board:
-                frame.configure(highlightbackground="darkblue", highlightthickness=3)
+                frame.configure(highlightbackground="darkblue", highlightthickness=5)
             else:
                 frame.configure(highlightbackground="black", highlightthickness=1)
     
