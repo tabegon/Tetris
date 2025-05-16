@@ -1,4 +1,5 @@
 import tkinter
+import time 
 
 class Tic_Tac_Boom:
     def __init__(self):
@@ -82,6 +83,45 @@ class Tic_Tac_Boom:
     def reset_board(self, board_index):
 
         pass
+
+    def temps_1mn(current_player, ):
+        pass 
+        #activation
+        clockX = 60 
+        while current_player == 'X' :
+            if sleep(1) : 
+                clockX -= 1
+            clockX += 3 
+        while current_player == '0' :
+            if sleep(1) : 
+                clock0 -= 1
+            clock0 += 3 
+
+                
+
+    def temps_5mn():
+        pass
+
+        while current_player == 'X' :
+            if sleep(1) : 
+                clockX -= 1
+            clockX += 3 
+        while current_player == '0' :
+            if sleep(1) : 
+                clock0 -= 1
+            clock0 += 3 
+
+    def temps_10mn():
+        pass
+        while current_player == 'X' :
+            if sleep(1) : 
+                clockX -= 1 
+        while current_player == '0' :
+            if sleep(1) : 
+                clock0 -= 1
+        
+
+
 
 partie = Tic_Tac_Boom()
 partie.fenetre.mainloop()
