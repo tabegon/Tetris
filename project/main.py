@@ -10,9 +10,9 @@ class Tic_Tac_Boom:
         # Le joueur qui commence
         self.current_player = "X"
         # Créations des grilles
-        self.boards = [[[" " for _ in range(3)] for _ in range(3)] for _ in range(9)]
+        self.boards = [[[" " for i in range(3)] for i in range(3)] for i in range(9)]
         # Création de la grille principale
-        self.board_wins = [" " for _ in range(9)]
+        self.board_wins = [" " for i in range(9)]
         # Faire commencer dans le morpion du milieu
         self.active_board = 4
 
@@ -32,11 +32,11 @@ class Tic_Tac_Boom:
         for big_row in range(3):
             for big_col in range(3):
                 # Frames de l'interface graphique
-                frame = tkinter.Frame(self.root, highlightbackground="black", highlightthickness=2)
+                frame = tkinter.Frame(self.fenetre, highlightbackground="black", highlightthickness=2)
                 # Sauvegarder dans la variable pour pouvoir changer sa highlightthickness
                 self.frames.append(frame)
                 # Placement de la frame
-                frame.grid(row=big_row, column=big_col, padx=2, pady=2)
+                frame.grid(row=big_row, column=big_col, padx=8, pady=4)
                 board_buttons = []
                 # Grilles secondaires
                 for small_row in range(3):
@@ -44,12 +44,12 @@ class Tic_Tac_Boom:
                         # Placement de la grille
                         index = 3 * small_row + small_col
                         btn = tkinter.Button(frame, text=" ", width=8, height=4,
-                                        command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
+                                        command=lambda: self.play(big_row, big_col, small_row, small_col))
                         btn.grid(row=small_row, column=small_col)
                         # Sauvegarde du boutton dans la variable
                         board_buttons.append(btn)
                 self.buttons.append(board_buttons)
-        self.case_active()
+        self.active_case()
     
     def active_case(self):
         """
