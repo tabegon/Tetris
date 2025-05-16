@@ -84,7 +84,7 @@ class Tic_Tac_Boom:
 
         pass
 
-    def temps_1mn(self, current_player):
+    def temps_1mn(self):
         #activation
         clockX = 60 
         while self.current_player == 'X' :
@@ -99,7 +99,7 @@ class Tic_Tac_Boom:
 
                 
 
-    def temps_5mn(self, current_player):
+    def temps_5mn(self):
         clockO = 300
         clockX = 300
         while self.current_player == 'X' :
@@ -112,13 +112,13 @@ class Tic_Tac_Boom:
         clock0 += 3 
         return clockO, clockX
 
-    def temps_10mn(self, current_player):
+    def temps_10mn(self):
         clockO = 600
         clockX = 600
         while self.current_player == 'X' :
             time.sleep(1)
             clockX -= 1 
-        while current_player == '0' :
+        while self.current_player == '0' :
             time.sleep(1)
             clock0 -= 1
         return clockO, clockX
