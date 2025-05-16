@@ -2,14 +2,17 @@ import tkinter
 
 class Tic_Tac_Boom:
     def __init__(self):
+        """
+        Initialisation de la classe avec leurs variable
+        """
         # Les joueurs
         self.players = ['O', 'X']
         # Le joueur qui commence
         self.current_player = "X"
         # Créations des grilles
-        self.boards = [[[" " for i in range(3)] for i in range(3)] for i in range(9)]
+        self.boards = [[[" " for _ in range(3)] for _ in range(3)] for _ in range(9)]
         # Création de la grille principale
-        self.board_wins = [" " for i in range(9)]
+        self.board_wins = [" " for _ in range(9)]
         # Faire commencer dans le morpion du milieu
         self.active_board = 4
 
@@ -21,6 +24,10 @@ class Tic_Tac_Boom:
         self.fenetre = tkinter.Tk()
 
     def create_ui(self):
+        """
+        Crée l'interface utilisateur du jeu
+        Cette fonction ne retourne rien car elle créer seulement l'interface à l'intérieur de la fonction
+        """
         # Grille principale
         for big_row in range(3):
             for big_col in range(3):
@@ -42,9 +49,12 @@ class Tic_Tac_Boom:
                         # Sauvegarde du boutton dans la variable
                         board_buttons.append(btn)
                 self.buttons.append(board_buttons)
-        self.highlight_active_board()
+        self.case_active()
     
-    def highlight_active_board(self):
+    def active_case(self):
+        """
+        Surligne la bordure de la case où l’on doit jouer
+        """
         for i, frame in enumerate(self.frames):
             if self.active_board is None or self.board_wins[i] != " ":
                 frame.configure(highlightbackground="black", highlightthickness=2)
@@ -53,7 +63,7 @@ class Tic_Tac_Boom:
             else:
                 frame.configure(highlightbackground="black", highlightthickness=2)
 
-    def couleur_case():
+    def case_color_win():
         pass
         
 
@@ -74,4 +84,4 @@ class Tic_Tac_Boom:
         pass
 
 partie = Tic_Tac_Boom()
-
+partie.fenetre.mainloop()

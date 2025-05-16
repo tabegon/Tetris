@@ -130,9 +130,7 @@ class UltimateTicTacToe:
                 frame.configure(highlightbackground="black", highlightthickness=1)
     
     def print_terminal_board(self):
-        def board_to_char(index):
-            return self.board_wins[index] if self.board_wins[index] != " " else str(index)
-
+        
         print("\n" + "=" * 30)
         print("État du plateau global :")
         for big_row in range(3):
