@@ -84,7 +84,7 @@ class Tic_Tac_Boom:
 
         pass
 
-    def temps_1mn(current_player, ):
+    def temps_1mn(current_player):
         pass 
         #activation
         clockX = 60 
@@ -100,7 +100,7 @@ class Tic_Tac_Boom:
 
                 
 
-    def temps_5mn():
+    def temps_5mn(current_player):
         pass
         clockO = 300
         clockX = 300
@@ -114,7 +114,7 @@ class Tic_Tac_Boom:
             clock0 += 3 
         return clockO, clockX
 
-    def temps_10mn():
+    def temps_10mn(current_player):
         pass
         clockO = 600
         clockX = 600
