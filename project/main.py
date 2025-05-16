@@ -123,6 +123,20 @@ class Tic_Tac_Boom:
             time.sleep(1)
             clock0 -= 1
         return clockO, clockX
+    
+    def temps_perso(self, tps, incrementation):
+        clockO = tps*60
+        clockX = tps*60
+        while clock0 <= 0 or clockX <= 0:
+            while self.current_player == 'X' :
+                time.sleep(1)
+                clockX -= 1
+            clockX += incrementation
+            while self.current_player == 'O' :
+                time.sleep(1)
+                clock0 -= 1
+            clock0 += incrementation
+        return clockO, clockX
         
 
 
