@@ -23,6 +23,7 @@ class Tic_Tac_Boom:
 
 
         self.fenetre = tkinter.Tk()
+        self.create_ui()
 
     def create_ui(self):
         """
