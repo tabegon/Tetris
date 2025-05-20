@@ -74,24 +74,24 @@ class Tic_Tac_Boom:
         pass
 
     def check_win(self, board):
-        if board[0][0] == board[1][1] == board[2][2] != 'X' :
+        if board[0][0] == board[1][1] == board[2][2] == 'X' :
             Xgagne = True
-        if board[2][0] == board[1][1] == board[0][2] != 'X' :
+        if board[2][0] == board[1][1] == board[0][2] == 'X' :
             Xgagne = True
         for i in range(3):
-            if board[i][0] == board[i][1] == board[i][2] != "X":
+            if board[i][0] == board[i][1] == board[i][2] == "X":
                 Xgagne = True
-            if board[0][i] == board[1][i] == board[2][i] != "X":
+            if board[0][i] == board[1][i] == board[2][i] == "X":
                 Xgagne = True
 
-        if board[0][0] == board[1][1] == board[2][2] != 'O' :
+        if board[0][0] == board[1][1] == board[2][2] == 'O' :
             Ogagne = True 
-        if board[2][0] == board[1][1] == board[0][2] != 'O' :
+        if board[2][0] == board[1][1] == board[0][2] == 'O' :
             Ogagne = True
         for i in range(3):
-            if board[i][0] == board[i][1] == board[i][2] != "O":
+            if board[i][0] == board[i][1] == board[i][2] == "O":
                 Ogagne = True
-            if board[0][i] == board[1][i] == board[2][i] != "O":
+            if board[0][i] == board[1][i] == board[2][i] == "O":
                 Ogagne = True
         return Ogagne, Xgagne
 
