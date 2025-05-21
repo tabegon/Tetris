@@ -94,7 +94,7 @@ class Tic_Tac_Boom:
                     case_pleine = True
                 else :
                     vide = True 
-        if vide and not case_pleine :
+        if vide and not case_pleine and not check_win :
             return True    
         return False
     def check_global_win(self):
