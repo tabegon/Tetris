@@ -65,10 +65,18 @@ class Tic_Tac_Boom:
             else:
                 frame.configure(highlightbackground="black", highlightthickness=2)
 
-    def case_color_win():
-        pass
+    def case_color_win(self, board_index, current_player):
+        """
+        Colorie le morpion gagné de la couleur du joueur
+        @param board_index: integer, nous permet de retrouver le plateau dans le grand
+        @param player: 'X' ou 'O', pour choisir la bonne couleur
+        """
+        if self.check_win() :
+            if self.current_player == 'X' :
+                board[board_index] = color("blue")
+            else :
+                board[board_index] = color("red")
         
-
     def play(self, big_row, big_col, small_row, small_col):
         if self.check_global_win():
             if self.current_player == "X":
