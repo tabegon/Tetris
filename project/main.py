@@ -79,9 +79,9 @@ class Tic_Tac_Boom:
         if board[2][0] == board[1][1] == board[0][2] != '' :
             return True
         for i in range(3):
-            if board[i][0] == board[i][1] == board[i][2] != "":
+            if board[i][0] == board[i][1] == board[i][2] != '' :
                 return True
-            if board[0][i] == board[1][i] == board[2][i] != "":
+            if board[0][i] == board[1][i] == board[2][i] != '' :
                 return True
 
 
