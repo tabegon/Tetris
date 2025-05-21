@@ -85,18 +85,14 @@ class Tic_Tac_Boom:
                 return True
 
 
-    def check_draw(self) : 
-        case_pleine = False
-        vide = False
+    def check_draw(self, board_index): 
+        
         for i in range(3):
             for j in range(3) :
-                if board[i][j] != ' ' :
-                    case_pleine = True
-                else :
-                    vide = True 
-        if vide and not case_pleine and not check_win :
-            return True    
-        return False
+                if board[board_index][i][j] == ' ' :
+                    return False
+        return True
+
     def check_global_win(self):
 
         pass
