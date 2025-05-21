@@ -70,6 +70,18 @@ class Tic_Tac_Boom:
         
 
     def play(self, big_row, big_col, small_row, small_col):
+        if self.check_global_win():
+            if self.current_player == "X":
+                print('O a gagner')
+                return
+            else:
+                print('X a gagner')
+                return
+        if self.check_win():
+            self.case_color_win()
+
+        if self.check_draw():
+            self.reset_board()
 
         pass
 
