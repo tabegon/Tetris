@@ -19,7 +19,7 @@ class UltimateTicTacToe:
         self.create_menu()
 
 
-    def create_gui(self):
+    def create_ui(self):
         for big_row in range(3):
             for big_col in range(3):
                 frame = tk.Frame(self.root, highlightbackground="black", highlightthickness=1)
