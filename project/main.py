@@ -46,7 +46,7 @@ class Tic_Tac_Boom:
                         # Placement de la grille
                         index = 3 * small_row + small_col
                         btn = tkinter.Button(frame, text=" ", width=8, height=4,
-                                        command=lambda: self.play(big_row, big_col, small_row, small_col))
+                                        command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
                         btn.grid(row=small_row, column=small_col)
                         # Sauvegarde du boutton dans la variable
                         board_buttons.append(btn)
@@ -71,11 +71,19 @@ class Tic_Tac_Boom:
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
 
         small_board_index = 3 * small_row + small_col # Nous donne l'index de l'endroit où nous avons jouer sur le petit plateau
+        print(big_row)
+        print(big_col)
 
-        # Ce qu'on joue
-        self.boards[board_index][small_row][small_col] = self.current_player        # Remplace " " par 'X' ou 'O'
-        self.buttons[board_index][small_board_index]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
-        self.buttons[board_index][small_board_index]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
+        print(board_index)
+        if board_index == self.active_board:
+            # Ce qu'on joue
+            self.boards[board_index][small_row][small_col] = self.current_player        # Remplace " " par 'X' ou 'O'
+            print(self.boards)
+            self.buttons[board_index][small_board_index]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
+            self.buttons[board_index][small_board_index]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
+        else:
+            print('Vous vous êtes trompés de plateau')
+            return
 
         if self.check_global_win():
             if self.current_player == "X":
@@ -85,7 +93,7 @@ class Tic_Tac_Boom:
                 print('O a gagner')
                 return
             
-        if self.check_win(self.boards):
+        if self.check_win(self.boards[board_index]):
             self.case_color_win(board_index)
 
         if self.check_draw(board_index):
