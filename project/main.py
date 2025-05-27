@@ -67,7 +67,8 @@ class Tic_Tac_Boom:
 
         
     def play(self, big_row, big_col, small_row, small_col):
-        board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
+        board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 
+                                            # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
 
         if self.check_global_win():
             if self.current_player == "X":
@@ -82,7 +83,18 @@ class Tic_Tac_Boom:
         if self.check_draw(board_index):
             self.reset_board(board_index)
 
-    def case_color_win(self, board_index, current_player):
+        self.active_board = 3 * small_row + small_col
+        self.active_case()
+
+        self.next_turn()
+
+    def next_turn(self):
+        if self.current_player == 'X':
+            self.current_player = 'O'
+        else:
+            self.current_player = 'X'
+
+    def case_color_win(self, board_index):
         """
         Colorie le morpion gagné de la couleur du joueur
         @param board_index: integer, nous permet de retrouver le plateau dans le grand
@@ -116,8 +128,8 @@ class Tic_Tac_Boom:
         return True
 
     def check_global_win(self):
-
-        pass
+        board = [[self.board_wins[3 * i + j] for j in range(3)] for i in range(3)]
+        return self.check_win(board)
 
     def reset_board(self, board_index):
 
