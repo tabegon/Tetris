@@ -70,14 +70,22 @@ class Tic_Tac_Boom:
         board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
 
+        small_board_index = 3 * small_row + small_col # Nous donne l'index de l'endroit où nous avons jouer sur le petit plateau
+
+        # Ce qu'on joue
+        self.boards[board_index][small_row][small_col] = self.current_player        # Remplace " " par 'X' ou 'O'
+        self.buttons[board_index][small_board_index]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
+        self.buttons[board_index][small_board_index]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
+
         if self.check_global_win():
             if self.current_player == "X":
-                print('O a gagner')
-                return
-            else:
                 print('X a gagner')
                 return
-        if self.check_win(board_index):
+            else:
+                print('O a gagner')
+                return
+            
+        if self.check_win(self.boards):
             self.case_color_win(board_index)
 
         if self.check_draw(board_index):
@@ -101,21 +109,20 @@ class Tic_Tac_Boom:
         @param player: 'X' ou 'O', pour choisir la bonne couleur
         """
         for btn in self.buttons[board_index]:
-            if self.check_win() :
-                if self.current_player == 'X' :
-                    self.boards[board_index] = btn.configure(bg='blue')
-                else :
-                    self.boards[board_index] = btn.configure(bg='red')
+            if self.current_player == 'X' :
+                self.boards[board_index] = btn.configure(bg='blue')
+            else :
+                self.boards[board_index] = btn.configure(bg='red')
 
     def check_win(self, board):
-        if board[0][0] == board[1][1] == board[2][2] != '' :
+        if board[0][0] == board[1][1] == board[2][2] != ' ' :
             return True
-        if board[2][0] == board[1][1] == board[0][2] != '' :
+        if board[2][0] == board[1][1] == board[0][2] != ' ' :
             return True
         for i in range(3):
-            if board[i][0] == board[i][1] == board[i][2] != '' :
+            if board[i][0] == board[i][1] == board[i][2] != ' ' :
                 return True
-            if board[0][i] == board[1][i] == board[2][i] != '' :
+            if board[0][i] == board[1][i] == board[2][i] != ' ' :
                 return True
 
 
