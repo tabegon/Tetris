@@ -514,21 +514,19 @@ class Tic_Tac_Boom:
     def ia_difficile_play(self, board_index) : 
         max_rate = -50
         for i in range(9) :
-<<<<<<< HEAD
             if rate[i] > max_rate :
                 max_rate = rate[i]
-=======
-            if self.rate[i] > max_rate :
-                max_rate = self.rate[i]
->>>>>>> 4085370bb5f3a1778c6ce9a8b899103af8f652cd
+            if rate[i] > max_rate :
+                max_rate = rate[i]
                 index = i
+
         max_rate_i = -50
         for j in range(3) :
             for h in range(3) : 
                 if rating_petit(boards[index][j][h]['O']) > max_rate_i :
                     max_rate_i = rating_petit(boards[i][j][h]['O'])
-                    j_ia = j
-                    h_ia = h
+                    i_ia = j
+                    j_ia = h
         
 
             
@@ -562,7 +560,7 @@ class Tic_Tac_Boom:
         self.active_case()
 
         self.next_turn()
-        return j_ia, h_ia 
+         
 
 
     
