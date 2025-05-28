@@ -334,12 +334,12 @@ class Tic_Tac_Boom:
 
     def rating_grand(self,rating) :
         # si un morpion gagné +10 
-            for j in range(3):
-                for h in range(3) : 
-                    if self.boards[j][h]  == 'X' :
-                        rating[i] += 0,5
+        for j in range(3):
+            for h in range(3) : 
+                if self.boards[j][h]  == 'X' :
+                    rating[i] += 0,5
 
-        for i in range(9) : 
+        for i in range(9) :
             for j in range(3):
                 for h in range(3) : 
                     if self.boards[j][h]  == 'O' :
