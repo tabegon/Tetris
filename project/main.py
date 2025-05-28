@@ -3,6 +3,7 @@ import tkinter
 from tkinter import messagebox
 
 class Tic_Tac_Boom:
+    # ---------------------------- Initialisation du jeu et création des interfaces ----------------------------
     def __init__(self):
         """
         Initialisation de la classe avec leurs variable
@@ -61,7 +62,8 @@ class Tic_Tac_Boom:
         self.timerO = tkinter.Label(self.fenetre, text=" ", font=("Arial", 25))
         self.timerO.grid(row=2, column=3)
     
-    
+    # ---------------------------- Fonctions d'un déroulement d'un coup ----------------------------
+
     def play(self, big_row, big_col, small_row, small_col):
         board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
@@ -169,6 +171,14 @@ class Tic_Tac_Boom:
             btn["text"] = " "                                                   # Sans texte
             btn["state"] = "normal"                                             # Et on peut cliquer sur le bouton
 
+    def new_game(self) : 
+        for i in range(9):
+            self.reset_board(i)
+        self.active_board = 4
+        self.active_case()
+
+    # ---------------------------- Fonctions des timers ----------------------------
+
     def temps_1min(self):
         self.clockO = 60
         self.clockX = 60
@@ -209,13 +219,13 @@ class Tic_Tac_Boom:
             self.timerX.configure(text=' ')
             self.timerO.configure(text=' ')
 
-
     def without_timer(self):
         self.clockX = None
         self.clockO = None
         self.timerX.configure(text=' ')
         self.timerO.configure(text=' ')
 
+    # ---------------------------- Fonctions des coups des ia ----------------------------
 
     def ia_random_play(self, board_index) : 
         i_ia = randint(0,2)
@@ -258,18 +268,13 @@ class Tic_Tac_Boom:
 
         self.next_turn()
 
-
     def active_ia_random(self):
         if self.ia_random == False:
             self.ia_random = True
         else:
             self.ia_random = False
 
-    def new_game(self) : 
-        for i in range(9):
-            self.reset_board(i)
-        self.active_board = 4
-        self.active_case()
+    # ---------------------------- Fonctions de la barre d'analyse ----------------------------
 
     def rating(self) :
         # coins + 1 
