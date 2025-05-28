@@ -1,6 +1,5 @@
 from random import randint
 import tkinter
-from tkinter import messagebox
 
 class Tic_Tac_Boom:
     # ---------------------------- Initialisation du jeu et création des interfaces ----------------------------
@@ -24,6 +23,7 @@ class Tic_Tac_Boom:
         self.frames = []
 
         self.ia_random = False
+        self.ia_moyenne = False
 
 
         self.fenetre = tkinter.Tk()
@@ -109,6 +109,8 @@ class Tic_Tac_Boom:
 
         if self.ia_random == True:
             self.ia_random_play(self.active_board)
+        elif self.ia_moyenne == True:
+            self.ia_moyenne_play(self.active_board)
 
     def active_case(self):
         """
@@ -273,6 +275,68 @@ class Tic_Tac_Boom:
             self.ia_random = True
         else:
             self.ia_random = False
+
+    def ia_moyenne_play(self, board_index) :
+        def play_ia():
+                    # Fait jouer l'ia
+            
+                    self.boards[board_index][i][j] = self.current_player        # Remplace " " par 'X' ou 'O'
+                    self.buttons[board_index][3*i+j]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
+                    self.buttons[board_index][3*i+j]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
+
+
+                    if self.check_win(self.boards[board_index]):
+                        self.board_wins[board_index] = self.current_player
+                        self.case_color_win(board_index)
+
+                    else:
+                        if self.check_draw(board_index):
+                            self.reset_board(board_index)
+
+                    if self.check_global_win():
+                        if self.current_player == "X":
+                            print('X a gagner')
+                            return
+                        else:
+                            print('O a gagner')
+                            return
+
+                    if self.board_wins[3*i+j] == ' ':
+                        self.active_board = 3 * i + j
+                    else:
+                        self.active_board = None
+                    self.active_case()
+
+                    self.next_turn()
+                    
+        coins = [[0, 0], [0, 2], [2, 0], [2, 2]]
+        milieu = [[1, 1]]
+        arete = [[0, 1], [1, 0], [1, 2], [2, 1]]
+        
+        for objet in coins:
+            i = objet[0]
+            j = objet[1]
+            if self.boards[board_index][i][j] == ' ':
+                play_ia()
+                return
+        for objet in milieu:
+            i = objet[0]
+            j = objet[1]
+            if self.boards[board_index][i][j] == ' ':
+                play_ia()
+                return
+        for objet in arete:
+            i = objet[0]
+            j = objet[1]
+            if self.boards[board_index][i][j] == ' ':
+                play_ia()
+                return
+                
+    def active_ia_moyenne(self):
+        if self.ia_moyenne == False:
+            self.ia_moyenne = True
+        else:
+            self.ia_moyenne = False
 
     # ---------------------------- Fonctions de la barre d'analyse ----------------------------
 
@@ -454,6 +518,7 @@ partie = Tic_Tac_Boom()
 menubar = tkinter.Menu(partie.fenetre)
 menu = tkinter.Menu(menubar)
 menu.add_command(label="Activer/Désactiver IA Random", command=partie.active_ia_random)
+menu.add_command(label="Activer/Désactiver IA Moyenne", command=partie.active_ia_moyenne)
 menubar.add_cascade(label="IA", menu=menu)
 
 menu_timer = tkinter.Menu(menubar)
