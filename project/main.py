@@ -57,7 +57,7 @@ class Tic_Tac_Boom:
         """
         Surligne la bordure de la case où l’on doit jouer
         """
-        for i, frame in enumerate(self.frames):
+        for i, frame in enumerate(self.frames):                            # On regarde toutes les frames une par une et on les énumères dans la variable i
             if self.active_board is None or self.board_wins[i] != " ":
                 frame.configure(highlightbackground="black", highlightthickness=2)
             elif i == self.active_board:
@@ -71,19 +71,24 @@ class Tic_Tac_Boom:
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
 
         small_board_index = 3 * small_row + small_col # Nous donne l'index de l'endroit où nous avons jouer sur le petit plateau
-        print(big_row)
-        print(big_col)
 
-        print(board_index)
-        if board_index == self.active_board:
+        if self.active_board == board_index or self.active_board == None:
             # Ce qu'on joue
             self.boards[board_index][small_row][small_col] = self.current_player        # Remplace " " par 'X' ou 'O'
-            print(self.boards)
             self.buttons[board_index][small_board_index]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
             self.buttons[board_index][small_board_index]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
         else:
             print('Vous vous êtes trompés de plateau')
             return
+
+            
+        if self.check_win(self.boards[board_index]):
+            self.board_wins[board_index] = self.current_player
+            self.case_color_win(board_index)
+
+        else:
+            if self.check_draw(board_index):
+                self.reset_board(board_index)
 
         if self.check_global_win():
             if self.current_player == "X":
@@ -93,13 +98,10 @@ class Tic_Tac_Boom:
                 print('O a gagner')
                 return
             
-        if self.check_win(self.boards[board_index]):
-            self.case_color_win(board_index)
-
-        if self.check_draw(board_index):
-            self.reset_board(board_index)
-
-        self.active_board = 3 * small_row + small_col
+        if self.board_wins[small_board_index] == ' ':
+            self.active_board = 3 * small_row + small_col
+        else:
+            self.active_board = None
         self.active_case()
 
         self.next_turn()
@@ -143,12 +145,16 @@ class Tic_Tac_Boom:
         return True
 
     def check_global_win(self):
-        board = [[self.board_wins[3 * i + j] for j in range(3)] for i in range(3)]
+        board = [[self.board_wins[3 * i + j] for j in range(3)] for i in range(3)] # Transformation de notre liste du plateau de morpion en matrice
         return self.check_win(board)
 
     def reset_board(self, board_index):
-
-        pass
+        self.boards[board_index] = [[" " for i in range(3)] for i in range(3)]  # Remise à 0 du petit plateau
+        self.board_wins[board_index] = " "                                      # Toujours pas de vainqueurs
+        for i in range(9):
+            btn = self.buttons[board_index][i]                                  # Récupération du bouton dans notre liste
+            btn["text"] = " "                                                   # Sans texte
+            btn["state"] = "normal"                                             # Et on peut cliquer sur le bouton
 
     def temps_1mn(self):
         #activation
