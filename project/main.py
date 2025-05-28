@@ -249,31 +249,121 @@ class Tic_Tac_Boom:
         else:
             self.ia_random = False
 
-    """def new_game(self) : 
+    def new_game(self) : 
         for i in range(9):
             self.reset_board(i)
-        rating = 200
-        rating = 
 
     def rating(self) :
         # coins + 1 
         
+        self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
+    def rating_petit(self) :
+        # si il y a une valeur + 1 
+        for i in range(8) :
             for j in range(3):
                 for h in range(3) : 
-                    if self.board[i][j][h]  == 'X' :
-                        rating += 1
+                    if self.boards[j][h]  == 'X' :
+                        self.rate[i] += 0,5
 
-        
+        for i in range(9) : 
             for j in range(3):
                 for h in range(3) : 
-                    if self.board[i][j][h]  == 'O' :
-                        rating -= 1
+                    if self.boards[j][h]  == 'O' :
+                        self.rate[i] -= 0,5
 
-        for i in range 
+        #si dans les coins + 1
+        for i in range(9) : 
+            if self.boards[i][0][0] =='X':        
+                self.rate[i] += 1 
+            if self.boards[i][2][0] =='X': 
+                self.rate[i] += 1
+            if self.boards[i][0][2] =='X': 
+                self.rate[i] += 1
+            if self.boards[i][2][2] =='X': 
+                self.rate[i] += 1
+            
+        # si 2 aligné + 2 
+            for i in range(9) : 
+                for j in range(2) : 
+                    for h in range(2) :
+                        if self.boards[i][j][h] == self.boards[i][j][h+1] =='X' :
+                            self.rate[i] += 2
+                        if self.boards[i][j][h] == self.boards[i][j+1][h] == 'X' :
+                            self.rate[i] += 2 
+                
+                if self.boards[i][0][0] == self.boards[i][1][1] =='X':
+                    self.rate[i] += 2
+                
+                if self.boards[i][2][2] == self.boards[i][1][1] =='X':
+                    self.rate[i] += 2
 
-        return ratingX, ratingO
+                if self.boards[i][2][2] == self.boards[i][0][0] =='X':
+                    self.rate[i] += 2
+                
+                if self.boards[i][2][0] == self.boards[i][1][1] =='X':
+                    self.rate[i] += 2
+                
+                if self.boards[i][0][2] == self.boards[i][1][1] =='X':
+                    self.rate[i] += 2
+                
+                if self.boards[i][2][0] == self.boards[i][0][2] =='X':
+                    self.rate[i] += 2
+            
+            # Pas besoin de retourner rate car self nous permet de reprendre la variable
 
-        """
+    def rating_grand(self,rating) :
+        # si un morpion gagné +10 
+        for j in range(3):
+            for h in range(3) : 
+                if self.boards[j][h]  == 'X' :
+                    rating[i] += 0,5
+
+        for i in range(9) : 
+            for j in range(3):
+                for h in range(3) : 
+                    if self.boards[j][h]  == 'O' :
+                        rating[i] -= 0,5
+
+        #si dans les coins + 1
+        for i in range(9) : 
+            if self.boards[i][0][0] =='X':        
+                rating[i] += 1 
+            if self.boards[i][2][0] =='X': 
+                rating[i] += 1
+            if self.boards[i][0][2] =='X': 
+                rating[i] += 1
+            if self.boards[i][2][2] =='X': 
+                rating[i] += 1
+            
+        # si 2 aligné + 2 
+            for i in range(9) : 
+                for j in range(2) : 
+                    for h in range(2) :
+                        if self.boards[i][j][h] == self.boards[i][j][h+1] =='X' :
+                            rating[i] += 2
+                        if self.boards[i][j][h] == self.boards[i][j+1][h] == 'X' :
+                            rating[i] += 2 
+                
+                if self.boards[i][0][0] == self.boards[i][1][1] =='X':
+                    rating[i] += 2
+                
+                if self.boards[i][2][2] == self.boards[i][1][1] =='X':
+                    rating[i] += 2
+
+                if self.boards[i][2][2] == self.boards[i][0][0] =='X':
+                    rating[i] += 2
+                
+                if self.boards[i][2][0] == self.boards[i][1][1] =='X':
+                    rating[i] += 2
+                
+                if self.boards[i][0][2] == self.boards[i][1][1] =='X':
+                    rating[i] += 2
+                
+                if self.boards[i][2][0] == self.boards[i][0][2] =='X':
+                    rating[i] += 2
+
+
 
     
 
