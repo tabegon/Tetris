@@ -1,3 +1,4 @@
+from random import randint
 import tkinter
 import time 
 
@@ -20,6 +21,8 @@ class Tic_Tac_Boom:
         # Initialisation des boutons et des frames
         self.buttons = []
         self.frames = []
+
+        self.ia_random = False
 
 
         self.fenetre = tkinter.Tk()
@@ -104,6 +107,9 @@ class Tic_Tac_Boom:
         self.active_case()
 
         self.next_turn()
+
+        if self.ia_random == True:
+            self.ia_random_play(self.active_board)
 
     def next_turn(self):
         if self.current_player == 'X':
@@ -208,18 +214,64 @@ class Tic_Tac_Boom:
             clock0 += incrementation
         return clockO, clockX
 
-    def ia_random() : 
-        if #l'ia est selectionne :
-            for i in range(100) : 
-                i_ia = randint(0;2)
-                j_ia = randint(0;2)
-                if board[i_ia][j_ia] == ' ' :
-                    return i_ia , j_ia 
-        return False
+    def ia_random_play(self, board_index) : 
+        i_ia = randint(0,2)
+        j_ia = randint(0,2)
+        if board_index == None:
+            board_index = randint(0,8)
+            while self.board_wins[board_index] != " ":
+                board_index = randint(0,8)
+        while self.boards[board_index][i_ia][j_ia] != " ":
+            i_ia = randint(0,2)
+            j_ia = randint(0,2)
+        # Fait jouer l'ia
+        
+        self.boards[board_index][i_ia][j_ia] = self.current_player        # Remplace " " par 'X' ou 'O'
+        self.buttons[board_index][3*i_ia+j_ia]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
+        self.buttons[board_index][3*i_ia+j_ia]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
 
 
+        if self.check_win(self.boards[board_index]):
+            self.board_wins[board_index] = self.current_player
+            self.case_color_win(board_index)
+
+        else:
+            if self.check_draw(board_index):
+                self.reset_board(board_index)
+
+        if self.check_global_win():
+            if self.current_player == "X":
+                print('X a gagner')
+                return
+            else:
+                print('O a gagner')
+                return
+
+        if self.board_wins[3*i_ia+j_ia] == ' ':
+            self.active_board = 3 * i_ia + j_ia
+        else:
+            self.active_board = None
+        self.active_case()
+
+        self.next_turn()
+
+
+    def active_ia_random(self):
+        if self.ia_random == False:
+            self.ia_random = True
+        else:
+            self.ia_random = False
 
 
 
 partie = Tic_Tac_Boom()
+
+
+
+menubar = tkinter.Menu(partie.fenetre)
+menu = tkinter.Menu(menubar)
+menu.add_command(label="Activer/Désactiver IA Random", command=partie.active_ia_random)
+menubar.add_cascade(label="IA", menu=menu)
+
+partie.fenetre.config(menu=menubar)
 partie.fenetre.mainloop()
