@@ -208,7 +208,17 @@ class Tic_Tac_Boom:
                 clock0 -= 1
             clock0 += incrementation
         return clockO, clockX
-        
+
+    def ia_random() : 
+        if #l'ia est selectionne :
+            for i in range(100) : 
+                i_ia = randint(0;2)
+                j_ia = randint(0;2)
+                if board[i_ia][j_ia] == ' ' :
+                    return i_ia , j_ia 
+        return False
+
+
 
 
 
