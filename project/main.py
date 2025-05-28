@@ -262,7 +262,8 @@ class Tic_Tac_Boom:
         # coins + 1 
         
         self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    
+        self.rating = 0    # variable differente de rate pour une meilleure précision de l'ia difficile  
+
     def rating_petit(self) :
         # si il y a une valeur + 1 
         for i in range(8) :
@@ -353,7 +354,7 @@ class Tic_Tac_Boom:
             
             # Pas besoin de retourner rate car self nous permet de reprendre la variable
 
-    def rating_grand(self,rating) :
+    def rating_grand(self) :
         # si un morpion gagné +10 
         for j in range(3):
             for h in range(3) : 
@@ -425,8 +426,49 @@ class Tic_Tac_Boom:
                 if self.board[2][0] == self.board[0][2] =='O':
                     self.rating -= 20
 
+    def ia_difficile_play(self, board_index) : 
+        max_rate = -50
+        for i range(9) :
+            if rate[i] > max_rate :
+                max_rate = rate[i]
+                index = i
+            
 
-    
+            
+        # Fait jouer l'ia
+        
+        self.boards[board_index][i_ia][j_ia] = self.current_player        # Remplace " " par 'X' ou 'O'
+        self.buttons[board_index][3*i_ia+j_ia]["text"] = self.current_player  # Change le texte du bouton pour avoir le texte du joueur
+        self.buttons[board_index][3*i_ia+j_ia]["state"] = "disabled"          # Empêche le fait de pouvoir rappuyer sur le bouton
+
+
+        if self.check_win(self.boards[board_index]):
+            self.board_wins[board_index] = self.current_player
+            self.case_color_win(board_index)
+
+        else:
+            if self.check_draw(board_index):
+                self.reset_board(board_index)
+
+        if self.check_global_win():
+            if self.current_player == "X":
+                print('X a gagner')
+                return
+            else:
+                print('O a gagner')
+                return
+
+        if self.board_wins[3*i_ia+j_ia] == ' ':
+            self.active_board = 3 * i_ia + j_ia
+        else:
+            self.active_board = None
+        self.active_case()
+
+        self.next_turn()
+
+
+
+
 
 partie = Tic_Tac_Boom()
 
