@@ -25,6 +25,7 @@ class Tic_Tac_Boom:
         self.ia_random = False
         self.ia_moyenne = False
 
+        self.rating_bar = 0
 
         self.fenetre = tkinter.Tk()
         self.create_ui()
@@ -111,6 +112,8 @@ class Tic_Tac_Boom:
             self.ia_random_play(self.active_board)
         elif self.ia_moyenne == True:
             self.ia_moyenne_play(self.active_board)
+        
+
 
     def active_case(self):
         """
@@ -312,7 +315,7 @@ class Tic_Tac_Boom:
         coins = [[0, 0], [0, 2], [2, 0], [2, 2]]
         milieu = [[1, 1]]
         arete = [[0, 1], [1, 0], [1, 2], [2, 1]]
-        
+
         for objet in coins:
             i = objet[0]
             j = objet[1]
@@ -441,18 +444,18 @@ class Tic_Tac_Boom:
         for j in range(3):
             for h in range(3) : 
                 if self.board[j][h] == 'X' :
-                    self.rating += 10
+                    self.rating_bar += 10
 
         for j in range(3):
             for h in range(3) : 
                 if self.boards[j][h] == 'O' :
-                    self.rating -= 10
+                    self.ratrating_baring -= 10
 
         #si au centre +30
         if self.board[1][1] == 'X' :
-            self.rating += 30
+            self.rating_bar += 30
         if self.board[1][1] == '0' :
-            self.rating -= 30 
+            self.rating_bar -= 30 
 
 
         #si 2 aligné +20
@@ -460,59 +463,64 @@ class Tic_Tac_Boom:
                 for j in range(2) : 
                     for h in range(2) :
                         if self.board[j][h] == self.board[j][h+1] == 'X' :
-                            self.rating += 20
+                            self.rating_bar += 20
                         if self.board[i][j][h] == self.board[j+1][h] == 'X' :
-                            self.rating += 20 
+                            self.rating_bar += 20 
                 
                 if self.board[0][0] == self.board[1][1] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
                 
                 if self.board[2][2] == self.board[1][1] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
 
                 if self.board[2][2] == self.board[0][0] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
                 
                 if self.board[2][0] == self.board[1][1] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
                 
                 if self.board[0][2] == self.board[1][1] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
                 
                 if self.board[2][0] == self.board[0][2] =='X':
-                    self.rating += 20
+                    self.rating_bar += 20
 
         for i in range(9) : 
                 for j in range(2) : 
                     for h in range(2) :
                         if self.board[j][h] == self.board[j][h+1] == 'O' :
-                            self.rating -= 20
+                            self.rating_bar -= 20
                         if self.board[j][h] == self.board[j+1][h] == 'O' :
-                            self.rating -= 20 
+                            self.rating_bar -= 20 
                 
                 if self.board[0][0] == self.board[1][1] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
                 
                 if self.board[2][2] == self.board[1][1] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
 
                 if self.board[2][2] == self.board[0][0] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
                 
                 if self.board[2][0] == self.board[1][1] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
                 
                 if self.board[0][2] == self.board[1][1] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
                 
                 if self.board[2][0] == self.board[0][2] =='O':
-                    self.rating -= 20
+                    self.rating_bar -= 20
 
     def ia_difficile_play(self, board_index) : 
         max_rate = -50
         for i in range(9) :
+<<<<<<< HEAD
             if rate[i] > max_rate :
                 max_rate = rate[i]
+=======
+            if self.rate[i] > max_rate :
+                max_rate = self.rate[i]
+>>>>>>> 4085370bb5f3a1778c6ce9a8b899103af8f652cd
                 index = i
         max_rate_i = -50
         for j in range(3) :
