@@ -1,5 +1,7 @@
 from random import randint
 import tkinter
+from tkinter import ttk
+import tkinter.ttk
 
 class Tic_Tac_Boom:
     # ---------------------------- Initialisation du jeu et création des interfaces ----------------------------
@@ -60,10 +62,17 @@ class Tic_Tac_Boom:
                         board_buttons.append(btn)
                 self.buttons.append(board_buttons)
         self.active_case()
+
         self.timerX = tkinter.Label(self.fenetre, text=" ", font=("Arial", 25))
         self.timerX.grid(row=0, column=3)
+
+        self.progressbar = tkinter.ttk.Progressbar(self.fenetre, orient='vertical', value=self.rating_bar+50 , length=200)
+        self.progressbar.grid(row=1, column=3)
+        self.update_progress_bar()
         self.button_game = tkinter.Button(self.fenetre, text=' New Game ', font=('Arial', 25), command=self.new_game)
-        self.button_game.grid(row=1, column=3)
+        self.button_game.grid(row=1, column=4)
+
+
         self.timerO = tkinter.Label(self.fenetre, text=" ", font=("Arial", 25))
         self.timerO.grid(row=2, column=3)
     
@@ -118,6 +127,8 @@ class Tic_Tac_Boom:
             self.ia_moyenne_play(self.active_board)
         elif self.ia_difficile == True:
             self.ia_difficile_play(self.active_board)
+        
+        self.rating_grand()
         
 
 
@@ -185,6 +196,8 @@ class Tic_Tac_Boom:
     def new_game(self) : 
         for i in range(9):
             self.reset_board(i)
+            for btn in self.buttons[i]:
+                self.boards[i] = btn.configure(bg='white')
         self.active_board = 4
         self.active_case()
 
@@ -235,6 +248,10 @@ class Tic_Tac_Boom:
         self.clockO = None
         self.timerX.configure(text=' ')
         self.timerO.configure(text=' ')
+
+    def update_progress_bar(self):
+        self.progressbar.config(value=self.rating_bar+50)
+        self.fenetre.after(1000, self.update_progress_bar)
 
     # ---------------------------- Fonctions des coups des ia ----------------------------
 
