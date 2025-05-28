@@ -24,7 +24,11 @@ class Tic_Tac_Boom:
 
         self.ia_random = False
         self.ia_moyenne = False
+        self.ia_difficile = False
 
+        self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        
         self.rating_bar = 0
 
         self.fenetre = tkinter.Tk()
@@ -112,6 +116,8 @@ class Tic_Tac_Boom:
             self.ia_random_play(self.active_board)
         elif self.ia_moyenne == True:
             self.ia_moyenne_play(self.active_board)
+        elif self.ia_difficile == True:
+            self.ia_difficile_play(self.active_board)
         
 
 
@@ -341,13 +347,19 @@ class Tic_Tac_Boom:
         else:
             self.ia_moyenne = False
 
+    def active_ia_difficile(self):
+        if self.ia_difficile == False:
+            self.ia_difficile = True
+        else:
+            self.ia_difficile = False
+
     # ---------------------------- Fonctions de la barre d'analyse ----------------------------
 
     def rating(self) :
         # coins + 1 
         
         self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        self.rating = 0    # variable differente de rate pour une meilleure précision de l'ia difficile  
+        self.rating_var = 0    # variable differente de rate pour une meilleure précision de l'ia difficile  
 
     def rating_petit(self) :
         # si il y a une valeur + 1 
@@ -437,7 +449,7 @@ class Tic_Tac_Boom:
                 if self.boards[i][2][0] == self.boards[i][0][2] =='O':
                     self.rate[i] -= 2
             
-            # Pas besoin de retourner rate car self nous permet de reprendre la variable
+        return self.rate
 
     def rating_grand(self) :
         # si un morpion gagné +10 
@@ -512,26 +524,20 @@ class Tic_Tac_Boom:
                     self.rating_bar -= 20
 
     def ia_difficile_play(self, board_index) : 
+        rate = self.rate
         max_rate = -50
         for i in range(9) :
-<<<<<<< HEAD
             if rate[i] > max_rate :
                 max_rate = rate[i]
-=======
-            if self.rate[i] > max_rate :
-                max_rate = self.rate[i]
->>>>>>> 4085370bb5f3a1778c6ce9a8b899103af8f652cd
-                index = i
         max_rate_i = -50
         for j in range(3) :
             for h in range(3) : 
-                if rating_petit(boards[index][j][h]['O']) > max_rate_i :
-                    max_rate_i = rating_petit(boards[i][j][h]['O'])
+                new_rate = self.rating_petit()
+                if new_rate > max_rate_i :
+                    max_rate_i = self.rating_petit()
                     j_ia = j
-                    h_ia = h
-        
+                    i_ia = h
 
-            
         # Fait jouer l'ia
         
         self.boards[board_index][i_ia][j_ia] = self.current_player        # Remplace " " par 'X' ou 'O'
@@ -562,7 +568,6 @@ class Tic_Tac_Boom:
         self.active_case()
 
         self.next_turn()
-        return j_ia, h_ia 
 
 
     
@@ -576,6 +581,7 @@ menubar = tkinter.Menu(partie.fenetre)
 menu = tkinter.Menu(menubar)
 menu.add_command(label="Activer/Désactiver IA Random", command=partie.active_ia_random)
 menu.add_command(label="Activer/Désactiver IA Moyenne", command=partie.active_ia_moyenne)
+menu.add_command(label="Activer/Désactiver IA Difficile", command=partie.active_ia_difficile)
 menubar.add_cascade(label="IA", menu=menu)
 
 menu_timer = tkinter.Menu(menubar)
