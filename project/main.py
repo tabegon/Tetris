@@ -445,6 +445,7 @@ class Tic_Tac_Boom:
 
 
     
+# Création de la partie:
 
 partie = Tic_Tac_Boom()
 
