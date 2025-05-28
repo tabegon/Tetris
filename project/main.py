@@ -92,10 +92,10 @@ class Tic_Tac_Boom:
         if self.check_global_win():
             if self.current_player == "X":
                 print('X a gagner')
-                return
+                
             else:
                 print('O a gagner')
-                return
+                
             
             self.fenetre.quit()
             print('Partie terminée')
