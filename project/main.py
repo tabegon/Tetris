@@ -95,10 +95,14 @@ class Tic_Tac_Boom:
         if self.check_global_win():
             if self.current_player == "X":
                 print('X a gagner')
-                return
+                
             else:
                 print('O a gagner')
-                return
+                
+            
+            self.fenetre.quit()
+            print('Partie terminée')
+                
             
         if self.board_wins[small_board_index] == ' ':
             self.active_board = 3 * small_row + small_col
@@ -262,7 +266,9 @@ class Tic_Tac_Boom:
         else:
             self.ia_random = False
 
+        
 
+    
 
 partie = Tic_Tac_Boom()
 
