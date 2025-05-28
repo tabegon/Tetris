@@ -103,6 +103,10 @@ class Tic_Tac_Boom:
             self.active_board = None
         self.active_case()
 
+        if self.check_global_win() :
+            self.fenetre.quit()
+            print("partie terminée")
+        
         self.next_turn()
 
     def next_turn(self):
@@ -208,18 +212,18 @@ class Tic_Tac_Boom:
             clock0 += incrementation
         return clockO, clockX
 
-    def ia_random() : 
+    """def ia_random() : 
         if #l'ia est selectionne :
             for i in range(100) : 
                 i_ia = randint(0;2)
                 j_ia = randint(0;2)
                 if board[i_ia][j_ia] == ' ' :
                     return i_ia , j_ia 
-        return False
+        return False"""
 
+        
 
-
-
+    
 
 partie = Tic_Tac_Boom()
 partie.fenetre.mainloop()
