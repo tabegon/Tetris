@@ -95,7 +95,6 @@ class Tic_Tac_Boom:
                 
             else:
                 print('O a gagner')
-                
             
             self.fenetre.quit()
             print('Partie terminée')
@@ -220,6 +219,28 @@ class Tic_Tac_Boom:
                 if board[i_ia][j_ia] == ' ' :
                     return i_ia , j_ia 
         return False"""
+
+    def new_game(self) : 
+        rating = 200
+        rating = 
+
+    def rating(self) :
+        # coins + 1 
+        
+            for j in range(3):
+                for h in range(3) : 
+                    if self.board[i][j][h]  == 'X' :
+                        rating += 1
+
+        
+            for j in range(3):
+                for h in range(3) : 
+                    if self.board[i][j][h]  == 'O' :
+                        rating -= 1
+
+        for i in range 
+
+        return ratingX, ratingO
 
         
 
