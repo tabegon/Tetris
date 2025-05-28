@@ -288,11 +288,21 @@ class Tic_Tac_Boom:
             if self.boards[i][2][2] =='X': 
                 self.rate[i] += 1
             
+        for i in range(9) : 
+            if self.boards[i][0][0] =='O':        
+                self.rate[i] -= 1 
+            if self.boards[i][2][0] =='O': 
+                self.rate[i] -= 1
+            if self.boards[i][0][2] =='O': 
+                self.rate[i] -= 1
+            if self.boards[i][2][2] =='O': 
+                self.rate[i] -= 1
+            
         # si 2 aligné + 2 
             for i in range(9) : 
                 for j in range(2) : 
                     for h in range(2) :
-                        if self.boards[i][j][h] == self.boards[i][j][h+1] =='X' :
+                        if self.boards[i][j][h] == self.boards[i][j][h+1] == 'X' :
                             self.rate[i] += 2
                         if self.boards[i][j][h] == self.boards[i][j+1][h] == 'X' :
                             self.rate[i] += 2 
@@ -314,6 +324,32 @@ class Tic_Tac_Boom:
                 
                 if self.boards[i][2][0] == self.boards[i][0][2] =='X':
                     self.rate[i] += 2
+
+        for i in range(9) : 
+                for j in range(2) : 
+                    for h in range(2) :
+                        if self.boards[i][j][h] == self.boards[i][j][h+1] == 'O' :
+                            self.rate[i] -= 2
+                        if self.boards[i][j][h] == self.boards[i][j+1][h] == 'O' :
+                            self.rate[i] -= 2 
+                
+                if self.boards[i][0][0] == self.boards[i][1][1] =='O':
+                    self.rate[i] -= 2
+                
+                if self.boards[i][2][2] == self.boards[i][1][1] =='O':
+                    self.rate[i] -= 2
+
+                if self.boards[i][2][2] == self.boards[i][0][0] =='O':
+                    self.rate[i] -= 2
+                
+                if self.boards[i][2][0] == self.boards[i][1][1] =='O':
+                    self.rate[i] -= 2
+                
+                if self.boards[i][0][2] == self.boards[i][1][1] =='O':
+                    self.rate[i] -= 2
+                
+                if self.boards[i][2][0] == self.boards[i][0][2] =='O':
+                    self.rate[i] -= 2
             
             # Pas besoin de retourner rate car self nous permet de reprendre la variable
 
@@ -321,53 +357,73 @@ class Tic_Tac_Boom:
         # si un morpion gagné +10 
         for j in range(3):
             for h in range(3) : 
-                if self.boards[j][h]  == 'X' :
-                    rating[i] += 0,5
+                if self.board[j][h] == 'X' :
+                    self.rating += 10
 
-        for i in range(9) :
-            for j in range(3):
-                for h in range(3) : 
-                    if self.boards[j][h]  == 'O' :
-                        rating[i] -= 0,5
+        for j in range(3):
+            for h in range(3) : 
+                if self.boards[j][h] == 'O' :
+                    self.rating -= 10
 
-        #si dans les coins + 1
-        for i in range(9) : 
-            if self.boards[i][0][0] =='X':        
-                rating[i] += 1 
-            if self.boards[i][2][0] =='X': 
-                rating[i] += 1
-            if self.boards[i][0][2] =='X': 
-                rating[i] += 1
-            if self.boards[i][2][2] =='X': 
-                rating[i] += 1
-            
-        # si 2 aligné + 2 
+        #si au centre +30
+        if self.board[1][1] == 'X' :
+            self.rating += 30
+        if self.board[1][1] == '0' :
+            self.rating -= 30 
+
+
+        #si 2 aligné +20
             for i in range(9) : 
                 for j in range(2) : 
                     for h in range(2) :
-                        if self.boards[i][j][h] == self.boards[i][j][h+1] =='X' :
-                            rating[i] += 2
-                        if self.boards[i][j][h] == self.boards[i][j+1][h] == 'X' :
-                            rating[i] += 2 
+                        if self.board[j][h] == self.board[j][h+1] == 'X' :
+                            self.rating += 20
+                        if self.board[i][j][h] == self.board[j+1][h] == 'X' :
+                            self.rating += 20 
                 
-                if self.boards[i][0][0] == self.boards[i][1][1] =='X':
-                    rating[i] += 2
+                if self.board[0][0] == self.board[1][1] =='X':
+                    self.rating += 20
                 
-                if self.boards[i][2][2] == self.boards[i][1][1] =='X':
-                    rating[i] += 2
+                if self.board[2][2] == self.board[1][1] =='X':
+                    self.rating += 20
 
-                if self.boards[i][2][2] == self.boards[i][0][0] =='X':
-                    rating[i] += 2
+                if self.board[2][2] == self.board[0][0] =='X':
+                    self.rating += 20
                 
-                if self.boards[i][2][0] == self.boards[i][1][1] =='X':
-                    rating[i] += 2
+                if self.board[2][0] == self.board[1][1] =='X':
+                    self.rating += 20
                 
-                if self.boards[i][0][2] == self.boards[i][1][1] =='X':
-                    rating[i] += 2
+                if self.board[0][2] == self.board[1][1] =='X':
+                    self.rating += 20
                 
-                if self.boards[i][2][0] == self.boards[i][0][2] =='X':
-                    rating[i] += 2
+                if self.board[2][0] == self.board[0][2] =='X':
+                    self.rating += 20
 
+        for i in range(9) : 
+                for j in range(2) : 
+                    for h in range(2) :
+                        if self.board[j][h] == self.board[j][h+1] == 'O' :
+                            self.rating -= 20
+                        if self.board[j][h] == self.board[j+1][h] == 'O' :
+                            self.rating -= 20 
+                
+                if self.board[0][0] == self.board[1][1] =='O':
+                    self.rating -= 20
+                
+                if self.board[2][2] == self.board[1][1] =='O':
+                    self.rating -= 20
+
+                if self.board[2][2] == self.board[0][0] =='O':
+                    self.rating -= 20
+                
+                if self.board[2][0] == self.board[1][1] =='O':
+                    self.rating -= 20
+                
+                if self.board[0][2] == self.board[1][1] =='O':
+                    self.rating -= 20
+                
+                if self.board[2][0] == self.board[0][2] =='O':
+                    self.rating -= 20
 
 
     
