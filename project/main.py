@@ -47,27 +47,19 @@ class Tic_Tac_Boom:
                 for small_row in range(3):
                     for small_col in range(3):
                         # Placement de la grille
-                        btn = tkinter.Button(frame, text=" ", width=8, height=4,
+                        btn = tkinter.Button(frame, text=" ", font=("MS Serif", 20), width=5, height=2,
                                         command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
                         btn.grid(row=small_row, column=small_col)
                         # Sauvegarde du boutton dans la variable
                         board_buttons.append(btn)
                 self.buttons.append(board_buttons)
         self.active_case()
+        self.timerX = tkinter.Label(self.fenetre, text=" ", font=("Terminal", 30))
+        self.timerX.grid(row=0, column=3)
+        self.timerO = tkinter.Label(self.fenetre, text=" ", font=("Terminal", 30))
+        self.timerO.grid(row=2, column=3)
     
-    def active_case(self):
-        """
-        Surligne la bordure de la case où l’on doit jouer
-        """
-        for i, frame in enumerate(self.frames):                            # On regarde toutes les frames une par une et on les énumères dans la variable i
-            if self.active_board is None or self.board_wins[i] != " ":
-                frame.configure(highlightbackground="black", highlightthickness=2)
-            elif i == self.active_board:
-                frame.configure(highlightbackground="darkblue", highlightthickness=4)
-            else:
-                frame.configure(highlightbackground="black", highlightthickness=2)
-
-        
+    
     def play(self, big_row, big_col, small_row, small_col):
         board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
@@ -114,6 +106,18 @@ class Tic_Tac_Boom:
         if self.ia_random == True:
             self.ia_random_play(self.active_board)
 
+    def active_case(self):
+        """
+        Surligne la bordure de la case où l’on doit jouer
+        """
+        for i, frame in enumerate(self.frames):                            # On regarde toutes les frames une par une et on les énumères dans la variable i
+            if self.active_board is None or self.board_wins[i] != " ":
+                frame.configure(highlightbackground="black", highlightthickness=2)
+            elif i == self.active_board:
+                frame.configure(highlightbackground="darkblue", highlightthickness=4)
+            else:
+                frame.configure(highlightbackground="black", highlightthickness=2)
+
     def next_turn(self):
         if self.current_player == 'X':
             self.current_player = 'O'
@@ -143,7 +147,6 @@ class Tic_Tac_Boom:
             if board[0][i] == board[1][i] == board[2][i] != ' ' :
                 return True
 
-
     def check_draw(self, board_index): 
         
         for i in range(3):
@@ -164,58 +167,39 @@ class Tic_Tac_Boom:
             btn["text"] = " "                                                   # Sans texte
             btn["state"] = "normal"                                             # Et on peut cliquer sur le bouton
 
-    def temps_1mn(self):
-        #activation
-        clockX = 60 
-        while self.current_player == 'X' :
-            time.sleep(1) 
-            clockX -= 1
-        clockX += 2 
-        while self.current_player == 'O' :
-            time.sleep(1)
-            clockO -= 1
-        clockO += 2 
-        return clockO, clockX
+    def temps_perso(self, tps):
+        self.clockO = tps * 60
+        self.clockX = tps * 60
+        self.update_timers()  # Méthode unique qui gère le timer
 
-                
+    def update_timers(self):
+        # Affiche le temps restants aux autres pendules
+        self.timerX.configure(text=f'X: {self.clockX}')
+        self.timerO.configure(text=f'O: {self.clockO}')
 
-    def temps_5mn(self):
-        clockO = 300
-        clockX = 300
-        while self.current_player == 'X' :
-            time.sleep(1)
-            clockX -= 1
-        clockX += 3 
-        while self.current_player == 'O' :
-            time.sleep(1)
-            clock0 -= 1
-        clock0 += 3 
-        return clockO, clockX
+        # Diminue le bon compteur
+        if self.current_player == 'X' and self.clockX >= 0:
+            self.clockX -= 1
+        elif self.current_player == 'O' and self.clockO >= 0:
+            self.clockO -= 1
 
-    def temps_10mn(self):
-        clockO = 600
-        clockX = 600
-        while self.current_player == 'X' :
-            time.sleep(1)
-            clockX -= 1 
-        while self.current_player == '0' :
-            time.sleep(1)
-            clock0 -= 1
-        return clockO, clockX
-    
-    def temps_perso(self, tps, incrementation):
-        clockO = tps*60
-        clockX = tps*60
-        while clock0 <= 0 or clockX <= 0:
-            while self.current_player == 'X' :
-                time.sleep(1)
-                clockX -= 1
-            clockX += incrementation
-            while self.current_player == 'O' :
-                time.sleep(1)
-                clock0 -= 1
-            clock0 += incrementation
-        return clockO, clockX
+        if self.clockX == 0:
+            print('X a gagné au temps')
+            self.fenetre.quit()
+        elif self.clockO == 0:
+            print('O a gagné au temps')
+            self.fenetre.quit()
+
+        # Répète toutes les 1 seconde
+        self.fenetre.after(1000, self.update_timers)
+
+
+    def without_timer(self):
+        self.timerX.configure(text=' ')
+        self.timerO.configure(text=' ')
+
+    def temps_perso_config(self):
+        self.temps_perso(0.1)
 
     def ia_random_play(self, board_index) : 
         i_ia = randint(0,2)
@@ -265,7 +249,9 @@ class Tic_Tac_Boom:
         else:
             self.ia_random = False
 
-    def new_game(self) : 
+    """def new_game(self) : 
+        for i in range(9):
+            self.reset_board(i)
         rating = 200
         rating = 
 
@@ -287,7 +273,7 @@ class Tic_Tac_Boom:
 
         return ratingX, ratingO
 
-        
+        """
 
     
 
@@ -299,6 +285,11 @@ menubar = tkinter.Menu(partie.fenetre)
 menu = tkinter.Menu(menubar)
 menu.add_command(label="Activer/Désactiver IA Random", command=partie.active_ia_random)
 menubar.add_cascade(label="IA", menu=menu)
+
+menu_timer = tkinter.Menu(menubar)
+menu_timer.add_command(label="no timer", command=partie.without_timer)
+menu_timer.add_command(label="timer perso", command=partie.temps_perso_config)
+menubar.add_cascade(label="Clock", menu=menu_timer)
 
 partie.fenetre.config(menu=menubar)
 partie.fenetre.mainloop()
