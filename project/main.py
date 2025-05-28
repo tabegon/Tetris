@@ -549,13 +549,8 @@ class Tic_Tac_Boom:
         self.next_turn()
 
 
-
-
-<<<<<<< HEAD
-=======
     
 # Création de la partie:
->>>>>>> 5d509c01afd7eb0e85f9f9d10208b99c6e03f31c
 
 partie = Tic_Tac_Boom()
 
