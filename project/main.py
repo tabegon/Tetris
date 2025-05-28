@@ -44,7 +44,6 @@ class Tic_Tac_Boom:
                 for small_row in range(3):
                     for small_col in range(3):
                         # Placement de la grille
-                        index = 3 * small_row + small_col
                         btn = tkinter.Button(frame, text=" ", width=8, height=4,
                                         command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
                         btn.grid(row=small_row, column=small_col)
