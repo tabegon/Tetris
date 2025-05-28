@@ -25,13 +25,7 @@ class Tic_Tac_Boom:
         self.frames = []
 
         self.ia_random = False
-        self.ia_moyenne = False
-        self.ia_difficile = False
-
-        self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-        
-        self.rating_bar = 0
+        self.ia_moyenne = False        
 
         self.fenetre = tkinter.Tk()
         self.create_ui()
@@ -55,7 +49,7 @@ class Tic_Tac_Boom:
                 for small_row in range(3):
                     for small_col in range(3):
                         # Placement de la grille
-                        btn = tkinter.Button(frame, text=" ", font=("Arial", 20), width=5, height=2,
+                        btn = tkinter.Button(frame, text=" ", font=("Arial", 20), width=5, height=2, bg='white',
                                         command=lambda br=big_row, bc=big_col, sr=small_row, sc=small_col: self.play(br, bc, sr, sc))
                         btn.grid(row=small_row, column=small_col)
                         # Sauvegarde du boutton dans la variable
@@ -66,11 +60,8 @@ class Tic_Tac_Boom:
         self.timerX = tkinter.Label(self.fenetre, text=" ", font=("Arial", 25))
         self.timerX.grid(row=0, column=3)
 
-        self.progressbar = tkinter.ttk.Progressbar(self.fenetre, orient='vertical', value=self.rating_bar+50 , length=200)
-        self.progressbar.grid(row=1, column=3)
-        self.update_progress_bar()
         self.button_game = tkinter.Button(self.fenetre, text=' New Game ', font=('Arial', 25), command=self.new_game)
-        self.button_game.grid(row=1, column=4)
+        self.button_game.grid(row=1, column=3)
 
 
         self.timerO = tkinter.Label(self.fenetre, text=" ", font=("Arial", 25))
@@ -126,10 +117,7 @@ class Tic_Tac_Boom:
             self.ia_random_play(self.active_board)
         elif self.ia_moyenne == True:
             self.ia_moyenne_play(self.active_board)
-        elif self.ia_difficile == True:
-            self.ia_difficile_play(self.active_board)
         
-        self.rating_grand()
         
 
 
@@ -218,12 +206,12 @@ class Tic_Tac_Boom:
 
     def new_game(self) :
         """
-        cré une nouvelle partie en suprimant le texte sur les boutons et en bloquant le premier coup au milieu
+        crée une nouvelle partie en suprimant le texte sur les boutons et en bloquant le premier coup au milieu
 	    """ 
         for i in range(9):
-            self.reset_board(i)
             for btn in self.buttons[i]:
                 self.boards[i] = btn.configure(bg='white')
+            self.reset_board(i)
         self.active_board = 4
         self.active_case()
 
@@ -274,10 +262,6 @@ class Tic_Tac_Boom:
         self.clockO = None
         self.timerX.configure(text=' ')
         self.timerO.configure(text=' ')
-
-    def update_progress_bar(self):
-        self.progressbar.config(value=self.rating_bar+50)
-        self.fenetre.after(1000, self.update_progress_bar)
 
     # ---------------------------- Fonctions des coups des ia ----------------------------
 
@@ -390,15 +374,10 @@ class Tic_Tac_Boom:
         else:
             self.ia_moyenne = False
 
-    def active_ia_difficile(self):
-        if self.ia_difficile == False:
-            self.ia_difficile = True
-        else:
-            self.ia_difficile = False
 
     # ---------------------------- Fonctions de la barre d'analyse ----------------------------
-
-    def rating(self) :
+        # On a essayé de faire un système d'analyse et d'ia se basant la dessus en vain
+"""    def rating(self) :
         # coins + 1 
         
         self.rate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -498,18 +477,19 @@ class Tic_Tac_Boom:
         # si un morpion gagné +10 
         for j in range(3):
             for h in range(3) : 
-                if self.board[j][h] == 'X' :
+                print(j, h)
+                if self.board_wins[j][h] == 'X' :
                     self.rating_bar += 10
 
         for j in range(3):
             for h in range(3) : 
-                if self.boards[j][h] == 'O' :
-                    self.ratrating_baring -= 10
+                if self.board_wins[j][h] == 'O' :
+                    self.rating_bar -= 10
 
         #si au centre +30
-        if self.board[1][1] == 'X' :
+        if self.board_wins[1][1] == 'X' :
             self.rating_bar += 30
-        if self.board[1][1] == '0' :
+        if self.board_wins[1][1] == '0' :
             self.rating_bar -= 30 
 
 
@@ -517,53 +497,53 @@ class Tic_Tac_Boom:
             for i in range(9) : 
                 for j in range(2) : 
                     for h in range(2) :
-                        if self.board[j][h] == self.board[j][h+1] == 'X' :
+                        if self.board_wins[j][h] == self.board_wins[j][h+1] == 'X' :
                             self.rating_bar += 20
-                        if self.board[i][j][h] == self.board[j+1][h] == 'X' :
+                        if self.board_wins[i][j][h] == self.board_wins[j+1][h] == 'X' :
                             self.rating_bar += 20 
                 
-                if self.board[0][0] == self.board[1][1] =='X':
+                if self.board_wins[0][0] == self.board_wins[1][1] =='X':
                     self.rating_bar += 20
                 
-                if self.board[2][2] == self.board[1][1] =='X':
+                if self.board_wins[2][2] == self.board_wins[1][1] =='X':
                     self.rating_bar += 20
 
-                if self.board[2][2] == self.board[0][0] =='X':
+                if self.board_wins[2][2] == self.board_wins[0][0] =='X':
                     self.rating_bar += 20
                 
-                if self.board[2][0] == self.board[1][1] =='X':
+                if self.board_wins[2][0] == self.board_wins[1][1] =='X':
                     self.rating_bar += 20
                 
-                if self.board[0][2] == self.board[1][1] =='X':
+                if self.board_wins[0][2] == self.board_wins[1][1] =='X':
                     self.rating_bar += 20
                 
-                if self.board[2][0] == self.board[0][2] =='X':
+                if self.board_wins[2][0] == self.board_wins[0][2] =='X':
                     self.rating_bar += 20
 
         for i in range(9) : 
                 for j in range(2) : 
                     for h in range(2) :
-                        if self.board[j][h] == self.board[j][h+1] == 'O' :
+                        if self.board_wins[j][h] == self.board_wins[j][h+1] == 'O' :
                             self.rating_bar -= 20
-                        if self.board[j][h] == self.board[j+1][h] == 'O' :
+                        if self.board_wins[j][h] == self.board_wins[j+1][h] == 'O' :
                             self.rating_bar -= 20 
                 
-                if self.board[0][0] == self.board[1][1] =='O':
+                if self.board_wins[0][0] == self.board_wins[1][1] =='O':
                     self.rating_bar -= 20
                 
-                if self.board[2][2] == self.board[1][1] =='O':
+                if self.board_wins[2][2] == self.board_wins[1][1] =='O':
                     self.rating_bar -= 20
 
-                if self.board[2][2] == self.board[0][0] =='O':
+                if self.board_wins[2][2] == self.board_wins[0][0] =='O':
                     self.rating_bar -= 20
                 
-                if self.board[2][0] == self.board[1][1] =='O':
+                if self.board_wins[2][0] == self.board_wins[1][1] =='O':
                     self.rating_bar -= 20
                 
-                if self.board[0][2] == self.board[1][1] =='O':
+                if self.board_wins[0][2] == self.board_wins[1][1] =='O':
                     self.rating_bar -= 20
                 
-                if self.board[2][0] == self.board[0][2] =='O':
+                if self.board_wins[2][0] == self.board_wins[0][2] =='O':
                     self.rating_bar -= 20
 
     def ia_difficile_play(self, board_index) : 
@@ -611,7 +591,7 @@ class Tic_Tac_Boom:
         self.active_case()
 
         self.next_turn()
-
+"""
 
     
 # Création de la partie:
@@ -624,7 +604,6 @@ menubar = tkinter.Menu(partie.fenetre)
 menu = tkinter.Menu(menubar)
 menu.add_command(label="Activer/Désactiver IA Random", command=partie.active_ia_random)
 menu.add_command(label="Activer/Désactiver IA Moyenne", command=partie.active_ia_moyenne)
-menu.add_command(label="Activer/Désactiver IA Difficile", command=partie.active_ia_difficile)
 menubar.add_cascade(label="IA", menu=menu)
 
 menu_timer = tkinter.Menu(menubar)
