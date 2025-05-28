@@ -79,6 +79,7 @@ class Tic_Tac_Boom:
     # ---------------------------- Fonctions d'un déroulement d'un coup ----------------------------
 
     def play(self, big_row, big_col, small_row, small_col):
+    
         board_index = 3 * big_row + big_col # Nous donne l'index du plateau de morpion, 
                                             # 3*big row: nous donne l'indice de la ligne et +big_col nous donne l'indice colonne
 
@@ -145,6 +146,9 @@ class Tic_Tac_Boom:
                 frame.configure(highlightbackground="black", highlightthickness=2)
 
     def next_turn(self):
+        """
+        Permet de changer de tour, et donc ainsi de changer de joueur
+        """
         if self.current_player == 'X':
             self.current_player = 'O'
         else:
@@ -163,6 +167,11 @@ class Tic_Tac_Boom:
                 self.boards[board_index] = btn.configure(bg='red')
 
     def check_win(self, board):
+        """ 
+	    Vérifie la victoire sur un morpion
+	    @param board: matrice du plateau de morpion
+	    @return True sssi un plateau a win
+	    """
         if board[0][0] == board[1][1] == board[2][2] != ' ' :
             return True
         if board[2][0] == board[1][1] == board[0][2] != ' ' :
@@ -174,7 +183,11 @@ class Tic_Tac_Boom:
                 return True
 
     def check_draw(self, board_index): 
-        
+        """
+        Vérifie si il y a égalité sur un petit plateau de morpion
+        @param board_index: integer, pour trouver où se situe le morpion dans le grand
+        @return True sssi égalité 
+        """
         for i in range(3):
             for j in range(3) :
                 if self.boards[board_index][i][j] == ' ' :
@@ -182,10 +195,20 @@ class Tic_Tac_Boom:
         return True
 
     def check_global_win(self):
+        """
+	    Permet de créer une matrice pour le grand plateau de morpion avant
+		d'appeller check_win pour vérifier si on a gagné l'ultimate morpion
+        @return True sssi check_win == True
+        """
         board = [[self.board_wins[3 * i + j] for j in range(3)] for i in range(3)] # Transformation de notre liste du plateau de morpion en matrice
         return self.check_win(board)
 
     def reset_board(self, board_index):
+        """
+        Remet le plateau choisi vide
+        @param board_index: integer, pour trouver où se situe le 
+        morpion dans le grand puis le vider
+        """
         self.boards[board_index] = [[" " for i in range(3)] for i in range(3)]  # Remise à 0 du petit plateau
         self.board_wins[board_index] = " "                                      # Toujours pas de vainqueurs
         for i in range(9):
@@ -193,7 +216,10 @@ class Tic_Tac_Boom:
             btn["text"] = " "                                                   # Sans texte
             btn["state"] = "normal"                                             # Et on peut cliquer sur le bouton
 
-    def new_game(self) : 
+    def new_game(self) :
+        """
+        cré une nouvelle partie en suprimant le texte sur les boutons et en bloquant le premier coup au milieu
+	    """ 
         for i in range(9):
             self.reset_board(i)
             for btn in self.buttons[i]:
