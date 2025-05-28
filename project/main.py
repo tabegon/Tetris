@@ -97,16 +97,16 @@ class Tic_Tac_Boom:
                 print('O a gagner')
                 return
             
+            self.fenetre.quit()
+            print('Partie terminée')
+                
+            
         if self.board_wins[small_board_index] == ' ':
             self.active_board = 3 * small_row + small_col
         else:
             self.active_board = None
         self.active_case()
 
-        if self.check_global_win() :
-            self.fenetre.quit()
-            print("partie terminée")
-        
         self.next_turn()
 
     def next_turn(self):
