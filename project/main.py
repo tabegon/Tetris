@@ -169,40 +169,53 @@ class Tic_Tac_Boom:
             btn["text"] = " "                                                   # Sans texte
             btn["state"] = "normal"                                             # Et on peut cliquer sur le bouton
 
-    def temps_perso(self, tps):
-        self.clockO = tps * 60
-        self.clockX = tps * 60
-        self.update_timers()  # Méthode unique qui gère le timer
+    def temps_1min(self):
+        self.clockO = 60
+        self.clockX = 60
+        self.update_timers()  # Méthode qui gère le timer
+
+    def temps_5min(self):
+        self.clockO = 5 * 60
+        self.clockX = 5 * 60
+        self.update_timers()  # Méthode qui gère le timer
+
+    def temps_10min(self):
+        self.clockO = 10 * 60
+        self.clockX = 10 * 60
+        self.update_timers()  # Méthode qui gère le timer
 
     def update_timers(self):
         # Affiche le temps restants aux autres pendules
         self.timerX.configure(text=f'X: {self.clockX}')
         self.timerO.configure(text=f'O: {self.clockO}')
 
-        # Diminue le bon compteur
-        if self.current_player == 'X' and self.clockX >= 0:
-            self.clockX -= 1
-        elif self.current_player == 'O' and self.clockO >= 0:
-            self.clockO -= 1
+        if self.clockX != None and self.clockO != None:
+            # Diminue le bon compteur
+            if self.current_player == 'X' and self.clockX >= 0:
+                self.clockX -= 1
+            elif self.current_player == 'O' and self.clockO >= 0:
+                self.clockO -= 1
 
-        if self.clockX == 0:
-            print('X a gagné au temps')
-            self.fenetre.quit()
-        elif self.clockO == 0:
-            print('O a gagné au temps')
-            self.fenetre.quit()
+            if self.clockX == 0:
+                print('X a gagné au temps')
+                self.fenetre.quit()
+            elif self.clockO == 0:
+                print('O a gagné au temps')
+                self.fenetre.quit()
 
-        # Répète toutes les 1 seconde
-        self.fenetre.after(1000, self.update_timers)
+            # Répète toutes les 1 seconde
+            self.fenetre.after(1000, self.update_timers)
+        else:
+            self.timerX.configure(text=' ')
+            self.timerO.configure(text=' ')
 
 
     def without_timer(self):
+        self.clockX = None
+        self.clockO = None
         self.timerX.configure(text=' ')
         self.timerO.configure(text=' ')
 
-    def temps_perso_config(self):
-        messagebox.askquestion('Timer', 'Combien de minutes dure le timer?')
-        self.temps_perso(0.1)
 
     def ia_random_play(self, board_index) : 
         i_ia = randint(0,2)
@@ -439,7 +452,9 @@ menubar.add_cascade(label="IA", menu=menu)
 
 menu_timer = tkinter.Menu(menubar)
 menu_timer.add_command(label="no timer", command=partie.without_timer)
-menu_timer.add_command(label="timer perso", command=partie.temps_perso_config)
+menu_timer.add_command(label="timer 1 minute", command=partie.temps_1min)
+menu_timer.add_command(label="timer 5 minutes", command=partie.temps_5min)
+menu_timer.add_command(label="timer 10 minute", command=partie.temps_10min)
 menubar.add_cascade(label="Clock", menu=menu_timer)
 
 partie.fenetre.config(menu=menubar)
