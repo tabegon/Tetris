@@ -278,7 +278,7 @@ class Tic_Tac_Boom:
         ratingi = 0
         rating = [ratinga, ratingb, ratingc, ratingd, ratinge, ratingf, ratingg, ratingh, ratingi]
     
-    def rating(self) :
+    def rating_petit(self) :
         # si il y a une valeur + 1 
         for i in range(8) :
             for j in range(3):
@@ -331,6 +331,58 @@ class Tic_Tac_Boom:
                 rating[i] += 2
         
         return rating
+
+    def rating_grand(self,rating) :
+        # si un morpion gagné +10 
+            for j in range(3):
+                for h in range(3) : 
+                    if self.boards[j][h]  == 'X' :
+                        rating[i] += 0,5
+
+        for i in range(9) : 
+            for j in range(3):
+                for h in range(3) : 
+                    if self.boards[j][h]  == 'O' :
+                        rating[i] -= 0,5
+
+    #si dans les coins + 1
+    for i in range(9) : 
+        if boards[i][0][0] =='X':        
+            rating[i] += 1 
+        if boards[i][2][0] =='X': 
+            rating[i] += 1
+        if boards[i][0][2] =='X': 
+            rating[i] += 1
+        if boards[i][2][2] =='X': 
+            rating[i] += 1
+        
+    # si 2 aligné + 2 
+        for i in range(9) : 
+            for j in range(2) : 
+                for h in range(2) :
+                    if boards[i][j][h] == boards[i][j][h+1] =='X' :
+                        rating[i] += 2
+                    if boards[i][j][h] == boards[i][j+1][h] == 'X' :
+                        rating[i] += 2 
+            
+            if boards[i][0][0] == boards[i][1][1] =='X':
+                rating[i] += 2
+            
+            if boards[i][2][2] == boards[i][1][1] =='X':
+                rating[i] += 2
+
+            if boards[i][2][2] == boards[i][0][0] =='X':
+                rating[i] += 2
+            
+            if boards[i][2][0] == boards[i][1][1] =='X':
+                rating[i] += 2
+            
+            if boards[i][0][2] == boards[i][1][1] =='X':
+                rating[i] += 2
+            
+            if boards[i][2][0] == boards[i][0][2] =='X':
+                rating[i] += 2
+
 
         
 
